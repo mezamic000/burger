@@ -66,7 +66,7 @@ var orm = {
 			cb(res);
 		});
 	},
-	delete: function (table, condition, cb) {
+	deleteOne: function (table, condition, cb) {
 		var dbQuery = "DELETE FROM " + table;
 		dbQuery += " WHERE ";
 		dbQuery += condition;
