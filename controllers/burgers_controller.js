@@ -1,11 +1,10 @@
 var express = require("express");
 
+var router = express.Router();
 var burger = require("../models/burger");
 
-var router = express.Router();
-
 router.get("/", function (req, res) {
-	burger.SelectAll(function (data) {
+	burger.selectAll(function (data) {
 		var hdbrsObj = {
 			burgers: data,
 		};
@@ -13,6 +12,7 @@ router.get("/", function (req, res) {
 		res.render("index", hdbrsObj);
 	});
 });
+
 
 router.post("/api/burgers", function (req, res) {
 	burger.insertOne(
@@ -44,19 +44,6 @@ router.put("/api/burgers/:id", function (req, res) {
 			}
 		}
 	);
-});
-
-router.deleteOne(condition, function (result) {
-	var condition = "id = " + req.params.id;
-
-	burger.deleteOne(condition, function (result) {
-		if (result.affectedRows == 0) {
-			// If no rows were changed, then the ID must not exist, so 404
-			return res.status(404).end();
-		} else {
-			res.status(200).end();
-		}
-	});
 });
 
 module.exports = router;

@@ -15,7 +15,8 @@ function createQmarks(num) {
 function translateSql(ob) {
 	var arr = [];
 	for (var key in ob) {
-		var value = ob[key];
+    var value = ob[key];
+    
 		if (Object.hasOwnProperty.call(ob, key)) {
 			// if string with spaces, add quotations (Lana Del Grey => 'Lana Del Grey')
 			if (typeof value === "string" && value.indexOf(" ") >= 0) {
@@ -47,7 +48,14 @@ var orm = {
 		dbQuery += createQmarks(vals.length);
 		dbQuery += ") ";
 
-		console.log(dbQuery);
+    console.log(dbQuery);
+    
+    connection.query(dbQuery, vals, function(err, result) {
+      if (err) {
+        throw err;
+      }
+      cb(result);
+    })
 	},
 	updateOne: function (table, objColVals, condition, cb) {
 		var dbQuery = "UPDATE " + table;
@@ -57,7 +65,8 @@ var orm = {
 		dbQuery += " WHERE ";
 		dbQuery += condition;
 
-		console.log(dbQuery);
+    console.log(dbQuery);
+    
 		connection.query(dbQuery, function (err, res) {
 			if (err) {
 				throw err;
@@ -67,7 +76,10 @@ var orm = {
 		});
 	},
 	deleteOne: function (table, condition, cb) {
-		var dbQuery = "DELETE FROM " + table;
+    var dbQuery = "DELETE FROM " + table;
+  
+    dbQuery += " SET ";
+    dbQuery += translateSql(objColVals);
 		dbQuery += " WHERE ";
 		dbQuery += condition;
 
