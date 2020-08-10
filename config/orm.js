@@ -40,7 +40,7 @@ var orm = {
     });
   },
 
-  InsertOne: function (table, cols, vals, cb) {
+  insertOne: function (table, cols, vals, cb) {
     var dbQuery = "INSERT INTO " + table;
 
     dbQuery += " (";
@@ -59,13 +59,13 @@ var orm = {
       cb(result);
     })
   },
-  updateOne: function (table, objColVals, condition, cb) {
+  updateOne: function (table, objColVals, id, cb) {
     var dbQuery = "UPDATE " + table;
 
     dbQuery += " SET ";
     dbQuery += translateSql(objColVals);
-    dbQuery += " WHERE ";
-    dbQuery += condition;
+    dbQuery += " WHERE id =";
+    dbQuery += id;
 
     console.log(dbQuery);
 
