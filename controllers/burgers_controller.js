@@ -4,10 +4,6 @@ var router = express.Router();
 var burger = require("../models/burger");
 
 router.get("/", function (req, res) {
-  res.redirect("/burgers");
-});
-
-router.get("/burgers", function (req, res) {
   burger.selectAll(function (burgerData) {
     // wrapper for orm.js that using MySQL query callback will return burger_data, render to index with handlebar
     res.render("index", { burger_data: burgerData });

@@ -10,8 +10,6 @@ if (process.env.JAWSDB_URL) {
     user: "root",
     password: "password",
     database: "burgers_db",
-
-    socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock'
   });
 };
 
